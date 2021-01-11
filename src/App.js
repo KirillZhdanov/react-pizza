@@ -2,8 +2,8 @@ import "./scss/app.scss";
 import { Header } from "./components";
 import { HomePage, Cart } from "./pages";
 import { Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+//import store from "./redux/store";
 
 /*const tmpPizzaArray = [
   "Пицца из половинок",
@@ -38,22 +38,34 @@ import axios from "axios";
   "Маргарита 🌱",
 ];*/
 function App() {
-  const [pizzasArray, setPizzas] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/db.json")
-      .then(({ data }) => setPizzas(data.pizzas));
-  }, []);
+  const dispatch = useDispatch();
+  // const { items } = useSelector(({ pizzasReducer, filtersReducer }) => {
+  //   return {
+  //     items: pizzasReducer.items,
+  //     sortBy: filtersReducer.sortBy,
+  //   };
+  // });
+
   return (
     <div className="wrapper">
       <Header />
-
       <div className="content">
-        <Route exact path="/" render={() => <HomePage items={pizzasArray} />} />
+        <Route exact path="/" component={HomePage} />
         <Route exact path="/cart" component={Cart} />
       </div>
     </div>
   );
 }
-
 export default App;
+// const mapStateToProps = (state) => {
+//   return {
+//     items: state.pizzasReducer.items,
+//   };
+// };
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setPizzasObj: (items) => dispatch(setPizzas(items)),
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App);

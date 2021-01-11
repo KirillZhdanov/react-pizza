@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import Button from "../Button";
 
-export default function PizzaElement({ additionalInfo }) {
+export default function PizzaElement({
+  additionalInfo,
+  onAddToCart,
+  addedCounter,
+}) {
   const {
     id,
     imageUrl: image,
@@ -20,10 +25,22 @@ export default function PizzaElement({ additionalInfo }) {
   const onSelectSize = (size) => {
     setActiveSize(size);
   };
+  const onAddPizza = () => {
+    onAddToCart({
+      id,
+      name: title,
+      imageUrl: image,
+      price,
+      size: selectedActiveSize,
+      type: typeLabels[selectedActiveType],
+    });
+  };
+
   const typeLabels = ["тонкое", "традиционное"];
   const sizeLabels = [26, 30, 40];
   const [selectedActiveType, setActiveType] = useState(types[0]);
   const [selectedActiveSize, setActiveSize] = useState(sizes[0]);
+
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={image} alt="Pizza" />
@@ -62,8 +79,8 @@ export default function PizzaElement({ additionalInfo }) {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price} руб.</div>
-        <div className="button button--outline button--add">
+        <div className="pizza-block__price">от {price}</div>
+        <Button className="button--add" onClickFn={onAddPizza} outline>
           <svg
             width="12"
             height="12"
@@ -77,10 +94,24 @@ export default function PizzaElement({ additionalInfo }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          {addedCounter && <i>{addedCounter}</i>}
+        </Button>
       </div>
     </div>
   );
 }
-PizzaElement.propTypes = { name: PropTypes.string, price: PropTypes.number };
+
+PizzaElement.propTypes = {
+  name: PropTypes.string,
+  imageUrl: PropTypes.string,
+  price: PropTypes.number,
+  types: PropTypes.arrayOf(PropTypes.number),
+  sizes: PropTypes.arrayOf(PropTypes.number),
+};
+
+PizzaElement.defaultProps = {
+  name: "---",
+  price: 0,
+  types: [],
+  sizes: [],
+};

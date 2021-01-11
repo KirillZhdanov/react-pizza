@@ -2,10 +2,15 @@ import React from "react";
 import logo from "../assets/img/pizza-logo.svg";
 import Button from "./Button";
 import { Link } from "react-router-dom";
-function hello() {
-  console.log("WORLD!");
-}
-export default function Header() {
+import { useSelector } from "react-redux";
+
+function Header() {
+  const { totalCount, totalPrice, pizzas } = useSelector(({ cartReducer }) => ({
+    totalPrice: cartReducer.totalPrice,
+    totalCount: cartReducer.totalCount,
+    pizzas: cartReducer.items,
+  }));
+  console.log(pizzas, totalCount, totalPrice);
   return (
     <div className="header">
       <div className="container">
@@ -20,8 +25,8 @@ export default function Header() {
         </Link>
         <div className="header__cart">
           <Link to="/cart">
-            <Button onClick={hello} className="button button--cart">
-              <span>720 ₽</span>
+            <Button className="button button--cart">
+              <span>{Number(totalPrice).toFixed(2)}</span>
               <div className="button__delimiter"></div>
               <svg
                 width="18"
@@ -52,7 +57,7 @@ export default function Header() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>3</span>
+              <span>{totalCount}</span>
             </Button>
           </Link>
         </div>
@@ -60,3 +65,4 @@ export default function Header() {
     </div>
   );
 }
+export default Header;
