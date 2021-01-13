@@ -4,6 +4,7 @@ import ContentLoader from "react-content-loader";
 export default function ElementLoader() {
   return (
     <ContentLoader
+      className="pizza-block"
       speed={2}
       width={280}
       height={460}
@@ -11,12 +12,11 @@ export default function ElementLoader() {
       backgroundColor="#f3f3f3"
       foregroundColor="#ecebeb"
     >
-      <circle cx="131" cy="131" r="119" />
-      <rect x="0" y="268" rx="5" ry="5" width="280" height="26" />
-      <rect x="0" y="307" rx="5" ry="5" width="280" height="84" />
-      <rect x="0" y="414" rx="5" ry="5" width="100" height="31" />
-      <rect x="199" y="449" rx="0" ry="0" width="13" height="0" />
-      <rect x="137" y="408" rx="18" ry="18" width="140" height="43" />
+      <circle cx="132" cy="142" r="115" />
+      <rect x="0" y="273" rx="6" ry="6" width="280" height="26" />
+      <rect x="0" y="310" rx="6" ry="6" width="280" height="84" />
+      <rect x="0" y="420" rx="6" ry="6" width="91" height="31" />
+      <rect x="137" y="412" rx="25" ry="25" width="140" height="46" />
     </ContentLoader>
   );
 }

@@ -67,7 +67,8 @@ export default function HomePage() {
                 additionalInfo={pizzaInfo}
                 onAddToCart={onAddToCart}
                 addedCounter={
-                  cartItems[pizzaInfo.id] && cartItems[pizzaInfo.id].length
+                  cartItems[pizzaInfo.id] &&
+                  cartItems[pizzaInfo.id].items.length
                 }
               />
             ))
